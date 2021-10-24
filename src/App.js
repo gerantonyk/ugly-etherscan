@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import BlockDetail from './Components/BlockDetail';
+import Home from './Components/Home';
+import TransactionDetail from './Components/TransactionDetail';
+
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <h1>Ugly EtherScan</h1>
+    <Switch>  
+      <Route exact path = '/'>
+        <Home></Home>
+      </Route>
+      <Route
+        exact path='/block/:blockNumber'
+        render={({match}) => <BlockDetail blockNumber={match.params.blockNumber}/>}
+      />
+      <Route
+        exact path='/transaction/:hash'
+        render={({match}) => <TransactionDetail hash={match.params.hash}/>}
+      />
+    </Switch>
+    </>
   );
 }
 
