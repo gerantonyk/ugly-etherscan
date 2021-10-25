@@ -1,23 +1,24 @@
 import './Block.css';
-import { provider } from "../conection";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState,useContext } from "react"
+import { EnviromentContext } from '../App';
 
 export default function BlockDetail({blockNumber}) {
-  console.log(blockNumber)
+
   let [block,setBlock] = useState({})
+  let {enviroment} = useContext(EnviromentContext);
 
 
-  function getBlockInfo(blockNumber) {
-    console.log(blockNumber)
-    provider.getBlock(blockNumber).then(r=>
-      setBlock(r) 
-    )
-  }
 
   useEffect( () => {
+    function getBlockInfo(blockNumber) {
+      enviroment.getBlock(blockNumber).then(r=>
+        setBlock(r) 
+      )
+    }
       getBlockInfo(parseInt(blockNumber))
-  }, [blockNumber ]);  
+  }, [blockNumber,enviroment]);  
 
+  if (block===null) return (<div>Block doesn't exist</div>)
   return (
     <>
       {JSON.stringify(block) === '{}' ?(<div>Loading...</div>

@@ -1,26 +1,29 @@
-import { provider } from "../conection";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState,useContext } from "react"
 import './LatestBlocks.css';
 import Transaction from "./Transaction";
+import { EnviromentContext } from "../App";
 
 
 export default function LatestTransactions({latestBlock}) {
   let [transactions,setTransactions] = useState([])
+  let {enviroment} = useContext(EnviromentContext);
+  
 
-  async function getTransactions(latestBlock) {
-    provider.getBlockWithTransactions(latestBlock).then(r=>setTransactions(r.transactions.slice(-10).reverse()))
-  }
   useEffect( () => {
+    async function getTransactions(latestBlock) {
+      const result = await enviroment.getBlockWithTransactions(latestBlock)
+      if (result) setTransactions(result.transactions.slice(-10).reverse())
+    }    
       getTransactions(latestBlock)
-  }, [latestBlock]);
+  }, [latestBlock,enviroment]);
   
 
   return (
 
     <div>
     
-    {console.log('transaciones',transactions)}
-    {transactions.length===0 ? (
+    {/* {console.log('transaciones',transactions)} */}
+    {transactions.length===0 || transactions[0]===null ? (
       <div>Loading...</div>
       ) : (
         <div className="LatestBlock_container">

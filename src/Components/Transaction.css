@@ -1,4 +1,4 @@
-.Block_container {
+.Transaction_container {
   flex-direction: row;
   display: flex;
   background-color:rgb(213, 213, 218);
@@ -7,15 +7,15 @@
   padding: 2px;
 }
 
-.Block_box1 {
+.Transaction_box1 {
   flex-direction: column;
   display: flex;
-  width: 130px;
+  width: 175px;
   margin-right: 10px;
   margin-left: 5px;
 }
 
-.Block_box2 {
+.Transaction_box2 {
   flex-direction: column;
   display: flex;
   margin-right: 5px;
@@ -23,7 +23,7 @@
   width: 450px;
 }
 
-.Block_Text {
+.Transaction_Text {
   font-weight:bold ;
 }
 /* .App {

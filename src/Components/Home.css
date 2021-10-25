@@ -1,6 +1,5 @@
 .Home_container {
   flex-direction: row;
   display: flex;
-
-
+  justify-content: space-evenly;
 }

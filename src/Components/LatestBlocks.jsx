@@ -1,39 +1,40 @@
-import { provider } from "../conection";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState,useContext } from "react"
 import Block from "./Block";
 import './LatestBlocks.css';
+import { EnviromentContext } from "../App";
 
 
 
 export default function LatestBlocks({latestBlock}) {
   let [blocks,setBlocks] = useState([])
+  let {enviroment} = useContext(EnviromentContext);
+  // console.log("Este es el latest block en Latestbloc",latestBlock)
+  // console.log("Este es provider en latestblock",enviroment)
+  
 
-
-  async function getBlocksInfo(latestBlock) {
-    let blocksInfo = []
-      
-    for(let i = latestBlock; i>latestBlock-10;i--) {
-      blocksInfo.push(provider.getBlock(i))
-    }
-
-    Promise.all(blocksInfo).then(setBlocks)
-  }
   useEffect( () => {
-    // setInterval(async() => {
-      //setBlocks(getBlocksInfo())
-    
+    async function getBlocksInfo(latestBlock) {
+      let blocksInfo = []
+        
+      for(let i = latestBlock; i>latestBlock-10;i--) {
+        blocksInfo.push(enviroment.getBlock(i))
+      }
+  
+      const result = await Promise.all(blocksInfo).then(setBlocks)
+      if (result) setBlocks(result)
+    }
       getBlocksInfo(latestBlock)
       
-    // }, 15000);
-  }, [latestBlock]);
+
+  }, [latestBlock,enviroment]);
   
 
   return (
 
     <div>
-    
-    {console.log('bloques',blocks)}
-    {blocks.length===0 ? (
+{/*     
+    {console.log('Estos son los blockes en latest',blocks)} */}
+    {blocks.length===0 || blocks[0]===null ? (
       <div>Loading...</div>
       ) : (
         <div className="LatestBlock_container">

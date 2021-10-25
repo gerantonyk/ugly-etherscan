@@ -1,26 +1,29 @@
 import './Block.css';
-import { provider } from "../conection";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState,useContext } from "react"
 import { Link } from 'react-router-dom';
+import { EnviromentContext } from '../App';
 
 export default function TransactionDetail({hash}) {
-  
+
   let [transaction,setTransaction] = useState({})
+  let {enviroment} = useContext(EnviromentContext);
 
 
-  function getTransactionInfo(hash) {
-    provider.getTransaction(hash).then(r=>
-      setTransaction(r) 
-    )
-  }
 
   useEffect( () => {
+    function getTransactionInfo(hash) {
+      enviroment.getTransaction(hash).then(r=>
+        setTransaction(r) 
+      )
+    }
     getTransactionInfo(hash)
-  }, [hash ]);  
+  }, [hash,enviroment]);  
+
+  if (transaction===null) return (<div>Transaction doesn't exist</div>)
 
   return (
     <>
-    {console.log("transaction",transaction)}
+    {/* {console.log("transaction",transaction)} */}
       {JSON.stringify(transaction) === '{}' ?(<div>Loading...</div>
       ): (
       <div className="BlockDetail_container">
@@ -52,6 +55,9 @@ export default function TransactionDetail({hash}) {
         <div>
           <label className="Block_Text"> Type:</label> {transaction.type}
         </div> 
+        <div>
+          <label className="Block_Text"> Value:</label> {transaction.value.toString()}
+        </div>         
       </div>
     )}
   </>
