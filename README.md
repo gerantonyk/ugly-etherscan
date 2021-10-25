@@ -1,3 +1,14 @@
+# About the proyect
+
+This is a nonproduction implementation of a block and transaction explorer using ethers js
+
+## Config
+
+To run this proyect you have to clone and install all the dependencis with `yarn add`
+
+Remember to create an `.env` file with your provider urls. Use `.env.template` as a template. You can use, for example, alchemy or infura.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
