@@ -1,6 +1,6 @@
 # About the proyect
 
-This is a nonproduction implementation of a block and transaction explorer using ethers js
+This is a simple nonproduction implementation of a Etherium block and transaction explorer using ethers js
 
 ## Config
 
